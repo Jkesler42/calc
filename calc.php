@@ -1,4 +1,12 @@
 <?php
+session_start();
+if(isset($_POST["answer"])){
+	if($_POST["answer"] == $total){
+		echo "Success";
+	} else {
+		echo "Failure";
+	}
+} else {
 function getOperator() {
 	$rando = rand(0,3);
 	switch ($rando){
@@ -30,8 +38,10 @@ $num4 = rand($min,$max);
 $op1 = getOperator();
 $op2 = getOperator();
 $op3 = getOperator();
-?>
-<html>
+$operation = "$num1 $op1 $num2 $op2 $num3 $op3 $num4";
+$total = floor(eval("return ($operation);"));
+
+echo '<html>
 	<head>
 	</head>
 	<body>
@@ -39,8 +49,7 @@ $op3 = getOperator();
 			you have 1 second to type the answer to the following problem, good luck! if only there was a better way...
 			<br>
 			<br>
-			<expression>
-				<?php
+			<expression>';
 				echo "$num1";
 				echo "<br>";
 				echo "$op1";
@@ -54,14 +63,15 @@ $op3 = getOperator();
 				echo "$op3";
 				echo "<br>";
 				echo "$num4";
-				?>
-			</expression>
+			echo '</expression>
 		<form action="calc.php" method="POST">
 			<br>
-			answer (hint: the solution is floor()'d:
+			answer (hint: the solution is floor()\'d):
 			<input type="text" name="answer" class="input" value>
 			<br>
 		</form>
 		</div>
 	</body>
-</html>
+</html>';
+}
+?>
